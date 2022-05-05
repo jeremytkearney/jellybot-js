@@ -1,7 +1,7 @@
 # jellybot-js
 Discord bot written in nodejs<br>
 
-Command list:<br>
-  /ping:    Replies with 'Pong!'<br>
-  /server:  Replies with information about the guild<br>
-  /user:    Replies with information about the user<br>
+## Command list:<br>
+  <p>/ping:    Replies with 'Pong!'</p>
+  <p>/server:  Replies with information about the guild</p>
+  <p>/user:    Replies with information about the user</p>
