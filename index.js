@@ -7,8 +7,8 @@ const { token } = require("./config.json");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Initialization code, only run once
-client.once('ready', () => {
-    console.log('Jellybot is ready to go!');
+client.once('ready', c => {
+    console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
 // Command handler
@@ -22,6 +22,13 @@ for(const file of commandFiles) {
 
     // Set a new item in the Collection with the key as the command name and the value as the exported module
     client.commands.set(command.data.name, command);
+}
+
+// Events handler
+const eventFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for(const file  of eventFiles) {
+    const command = require(`./commands/${file}`);
 }
 
 // Listens for and executes commands
