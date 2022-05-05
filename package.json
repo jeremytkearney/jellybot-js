@@ -1,0 +1,36 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "A nodejs discord bot project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremytkearney/jellybot-js.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "javascript",
+    "discord",
+    "discordjs"
+  ],
+  "author": "Jeremy Kearney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeremytkearney/jellybot-js/issues"
+  },
+  "homepage": "https://github.com/jeremytkearney/jellybot-js#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.13.0",
+    "@discordjs/rest": "^0.4.1",
+    "discord-api-types": "^0.32.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0"
+  }
+}
