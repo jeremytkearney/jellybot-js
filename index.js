@@ -1,4 +1,5 @@
-// Require necessary discord.js dependencies
+// Require necessary discord.js and node dependencies
+const fs = require('node:fs');
 const { Client, Intents, Interaction } = require('discord.js');
 const { token } = require("./config.json");
 
@@ -10,18 +11,32 @@ client.once('ready', () => {
     console.log('Jellybot is ready to go!');
 });
 
-// Listen for interactions and reply to commands
-client.on('interactionCreate', async interaction => {    
-    if(!Interaction.isCommand()) return;
+// Command handler
+client.commands = new Collection();
+// Read in all files in jellybot-js/commands/ with a .js extension
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-    const { commandName } = interaction;
+// Iterate through every file and set the command from the file
+for(const file of commandFiles) {
+    const command = require(`./commands/${file}`);
 
-    if(commandName === 'ping') {
-        await interaction.reply('Pong!');
-    } else if(commandName === 'server') {
-        await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
-    } else if (commandName === 'user') {
-        await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
+    // Set a new item in the Collection with the key as the command name and the value as the exported module
+    client.commands.set(command.data.name, command);
+}
+
+// Listens for and executes commands
+client.on('interactionCreate', async interaction => {
+    if(!interaction.isCommand()) return;
+
+    const command =  client.commands.get(interaction.commandName);
+
+    if(!command) return;
+
+    try {
+        await command.execute(interaction);
+    } catch(error) {
+        console.error(error);
+        await interactions.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
 });
 
